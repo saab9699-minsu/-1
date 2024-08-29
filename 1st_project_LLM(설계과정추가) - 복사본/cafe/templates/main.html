@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/static/CSS/main.css">
+    <link rel="stylesheet" href="/static/CSS/reset.css">
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/footer.css">
+    <body>
+
+        <header>
+            <h1 id="title">Drink Pickers</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'cafe:main' %}">메뉴</a>
+                    </li>
+                    <li>
+                        <a href="#about">데이터 시각화</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'users:feedback' %}">건의사항</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'cafe:created' %}">제작과정</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="login-sign">
+                <a href="{% url 'users:logout' %}"><p>Logout</p></a>
+            </div>
+        </header>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+
+                    <div class="swiper-image">
+                        <a href=""><img src="https://paikdabang.com/wp-content/uploads/2018/06/%EB%AF%B8%EC%88%AB%EA%B0%80%EB%A3%A8-450x588.png"></a>
+                        <p>아이스티</p>
+                        <span>인기</span>
+                    </div>
+
+                    <div class="swiper-image">
+                        <img src="https://paikdabang.com/wp-content/uploads/2018/06/%EC%B2%AD%ED%8F%AC%EB%8F%84%EC%97%90%EC%9D%B4%EB%93%9C-450x588.png">
+                        <p>커피</p>
+                        <span>인기</span>
+                    </div>
+
+                    <div class="swiper-image">
+                        <img src="https://paikdabang.com/wp-content/uploads/2021/12/%EC%99%84%EC%A0%84%ED%86%A0%EB%A7%88%ED%86%A0-450x588.png">
+                        <p>쉐이크</p>
+                        <span>인기</span>
+                    </div>
+                </div>
+        
+                <div class="swiper-slide">
+                    <div class="swiper-image">
+                        <img src="https://paikdabang.com/wp-content/uploads/2021/12/%EC%99%84%EC%A0%84%ED%86%A0%EB%A7%88%ED%86%A0-450x588.png">
+                        <p>아이스티</p>
+                        <span>인기</span>
+                    </div>
+
+                    <div class="swiper-image">
+                        <img src="https://paikdabang.com/wp-content/uploads/2021/12/%EC%99%84%EC%A0%84%ED%86%A0%EB%A7%88%ED%86%A0-450x588.png">
+                        <p>커피</p>
+                        <span>인기</span>
+                    </div>
+
+                    <div class="swiper-image">
+                        <img src="https://paikdabang.com/wp-content/uploads/2021/12/%EC%99%84%EC%A0%84%ED%86%A0%EB%A7%88%ED%86%A0-450x588.png">
+                        <p>쉐이크</p>
+                        <span>인기</span>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <div class="category">
+            <form method="POST" action="{% url 'cafe:main' %}">
+            {% csrf_token %}
+                <label for="brand">브랜드</label>
+                <select name="brand" id="brand">
+                    <option value="기본">기본</option>
+                    <option value="스타벅스">스타벅스</option>
+                    <option value="메가커피">메가커피</option>
+                    <option value="이디야">이디야</option>
+                    <option value="바나프레소">바나프레소</option>
+                </select>
+            
+                <label for="category">카테고리</label>
+                <select name="category" id="category">
+                    <option value="기본">기본</option>
+                    <option value="커피">커피</option>
+                    <option value="음료">음료</option>
+                    <option value="스무디">스무디</option>
+                    <option value="티">티</option>
+                </select>
+                
+                <label for="order_by">정렬</label>
+                <select name="order_by" id="order_by">
+                    <option value="기본">기본</option>
+                    <option value="-caffeine">카페인 ▲</option>
+                    <option value="caffeine">카페인 ▼</option>
+                    <option value="-calorie">칼로리 ▲</option>
+                    <option value="calorie">칼로리 ▼</option>
+                    <option value="-dang">당류 ▲</option>
+                    <option value="dang">당류 ▼</option>
+                    <option value="-protein">단백질 ▲</option>
+                    <option value="protein">단백질 ▼</option>
+                </select>
+
+                <button type="submit">검색</button>
+            </form>
+        </div>
+        
+        <div class="grid">
+            {% for menu in menus %}
+            <div class="coffee">
+                <h1>{{ menu.coffee_name }}</h1>
+                <div class="category_brand">
+                    <h2 
+                    {% if menu.category in "커피" %}
+                        style="background-color: rgb(196, 179, 94);"
+                    {% elif menu.category in "음료"%}
+                        style="background-color: rgb(172, 236, 172);"
+                    {% elif menu.category in "티"%}
+                        style="background-color: rgb(255, 249, 169);"
+                    {% elif menu.category in "스무디"%}
+                        style="background-color: rgb(245, 160, 81);"
+                    {% endif %}>{{ menu.category }}</h2>
+                    <h2 
+                    {% if menu.brand in "스타벅스" %}
+                        style="background-color: rgb(49, 160, 99);"
+                    {% elif menu.brand in "메가커피"%}
+                        style="background-color: rgb(172, 236, 172);"
+                    {% elif menu.brand in "이디야"%}
+                        style="background-color: rgb(230, 221, 97);"
+                    {% elif menu.brand in "바나프레소"%}
+                        style="background-color: rgb(240, 252, 133);"
+                    {% endif %}>{{ menu.brand }}</h2>
+                </div>
+                <a href="{% url 'cafe:detail' menu_id=menu.id %}"><img src="{{ menu.img }}"></a>
+                <div class="kcal_table">
+                    <div class="kcal">
+                        <div>
+                            <p>카페인(mg)</p> 
+                            <p>{{ menu.caffeine }}</p>
+                        </div>
+                        <div>
+                            <p>칼로리(kcal)</p> 
+                            <p>{{ menu.calorie }}</p>
+                        </div>
+                        <div>
+                            <p>포화지방</p> 
+                            <p>{{ menu.fatty }}</p>
+                        </div>
+                    </div>
+                    <div class="kcal kcal2">
+                        <div>
+                            <p>단백질(g)</p> 
+                            <p>{{ menu.protein }}</p>
+                        </div>
+                        <div>
+                            <p>당류(g)</p> 
+                            <p>{{ menu.dang }}</p>
+                        </div>
+                        <div>
+                            <p>나트륨(mg)</p> 
+                            <p>{{ menu.na }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <footer>
+            <div class="reference">
+                <!-- <img src="./images/Disney_Plus_logo.svg.png" alt=""> -->
+                <ul>
+                    <i class='bx bx-globe'></i>
+                    <li>
+                        <select name="" id="">
+                            <option value="">
+                                한국어 
+                            </option>
+                            <option value="">English</option>
+                        </select>
+                    </li>
+                    <li><a href="#">디즈니+이용약관</a></li>
+                    <li><a href="#">개인정보 처리 방침</a></li>
+                    <li><a href="#">개인정보 처리방침 부속서</a></li>
+                    <li><a href="#">관심 기반 광고</a></li>
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">다양한 시청 방법</a></li>
+                    <li><a href="#">디즈니+ 소개</a></li>
+                    <li><a href="#">통신판매업 사업자정보확인</a></li>
+                </ul>
+                <p>
+                    <address>
+                        월트디즈니컴퍼니코리아 유한책임회사 | 대표자: 김소연 | 서울특별시 강남구 테헤란로 152, 7층 (우편번호: 06236) | Email: help@disneyplus.kr | 연락처: 080 822 1416 | 사업자등록번호: 220-81-03347 | 통신판매업 신고번호: 제2021-서울강남-05456호 |<br>
+                        비디오물배급업 신고번호: 제2016-16호 | 호스팅서비스 사업자: NSOne
+                    </address>
+                </p>
+                <p>
+                    디즈니+의 콘텐츠는 서비스 여부에 따라 달라질 수 있습니다.<br>
+                    © 2023 Disney and its related entities. All Rights Reserved.
+                </p>
+            </div>
+        </footer>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/static/Script/main.js"></script>
+</html>
