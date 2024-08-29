@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="/static/CSS/header.css">
+        <link rel="stylesheet" href="/static/CSS/footer.css">
+        <link rel="stylesheet" href="/static/CSS/reset.css">
+        <link rel="stylesheet" href="/static/CSS/detail.css">
+    </head>
+    <!-- 메뉴 상세 -->
+    <body>
+        <header>
+            <h1 id="title">Drink Pickers</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'cafe:main' %}">메뉴</a>
+                    </li>
+                    <li>
+                        <a href="#about">데이터 시각화</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'users:feedback' %}">건의사항</a>
+                    </li>
+                    <li>
+                        <a href="#skills">제작과정</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="login-sign">
+                <a href="{% url 'users:logout' %}"><p>Logout</p></a>
+            </div>
+        </header>
+
+        <div class="detail">
+            <div>
+                <img src = "{{ menu.img }}">
+            </div>
+            <div class="coffee_info">
+                <h1>{{ menu.coffee_name }} </h1>
+                <h2>브랜드 : {{ menu.brand }}</h2>
+                <h2>종류 : {{ menu.category }}</h2>
+                <div class="table">   
+                    <div class="kcal">
+                        <div class="line">
+                            <p>카페인(mg)</p> 
+                            <p>{{ menu.caffeine }}</p>
+                        </div>
+                        <div class="line">
+                            <p>칼로리(kcal)</p> 
+                            <p>{{ menu.calorie }}</p>
+                        </div>
+                        <div>
+                            <p>포화지방</p> 
+                            <p>{{ menu.fatty }}</p>
+                        </div>
+                    </div>
+                    <div class="kcal kcal2">
+                        <div class="line">
+                            <p>단백질(g)</p> 
+                            <p>{{ menu.protein }}</p>
+                        </div>
+                        <div class="line">
+                            <p>당류(g)</p> 
+                            <p>{{ menu.dang }}</p>
+                        </div>
+                        <div>
+                            <p>나트륨(mg)</p> 
+                            <p>{{ menu.na }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <!-- 좋아요/ 댓글 시작 -->
+        <div>
+            <form action="{% url 'cafe:detail' menu_id=menu.id %}like/" method="POST" >
+                {% csrf_token %}
+                <button type="submit">
+                    <!-- Menu에 좋아요 누른 사용자 수를 가져옴-->
+                    Likes({{ menu.like_set.count }})
+                </button>
+            </form>
+        <span>Comments({{ menu.comment_set.count }})</span>
+
+        {% for comment in menu.comment_set.all %}
+            <h4>{{ comment.user_id }}</h4>
+            <p> {{ comment.content }}</p>
+        {% endfor %}
+        </div>
+
+        <div class="contents">
+            <span>Comments({{ menu.comment_set.count }})</span>
+            {% for comment in menu.comment_set.all %}
+            <div class="content">
+                <h1>- {{ comment.user_id }}</h1>
+                <h3> {{ comment.content }}</h3>
+                <small>{{ comment.created }}</small>
+            </div>
+            {% endfor %}
+            <div>
+                <!-- action 속성을 "댓글 추가" View 를 가리키는 URL 로 지정 -->
+                <form method="POST" action="{% url 'cafe:comment_add' id=menu.id %}">
+                    {% csrf_token %}
+                    <!-- 사용자가 직접 입력하지 않는 고정된 데이터를 form 내부에 위치 -->
+                    <input type="hidden" name="menu_id" value="{{ menu.id }}">
+                    <!-- 전달된 comment_form의 필드 중, "content" 필드만 렌더링 -->
+                    {{ comment_form.content }}
+                    <button type="submit" class="content_button">게시</button>
+                </form>
+            </div>
+        </div>
+
+    <!-- 댓글 달기 -->
+        
+        
+
+        <footer>
+            <div class="reference">
+                <!-- <img src="./images/Disney_Plus_logo.svg.png" alt=""> -->
+                <ul>
+                    <i class='bx bx-globe'></i>
+                    <li>
+                        <select name="" id="">
+                            <option value="">
+                                한국어 
+                            </option>
+                            <option value="">English</option>
+                        </select>
+                    </li>
+                    <li><a href="#">디즈니+이용약관</a></li>
+                    <li><a href="#">개인정보 처리 방침</a></li>
+                    <li><a href="#">개인정보 처리방침 부속서</a></li>
+                    <li><a href="#">관심 기반 광고</a></li>
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">다양한 시청 방법</a></li>
+                    <li><a href="#">디즈니+ 소개</a></li>
+                    <li><a href="#">통신판매업 사업자정보확인</a></li>
+                </ul>
+                <p>
+                    <address>
+                        월트디즈니컴퍼니코리아 유한책임회사 | 대표자: 김소연 | 서울특별시 강남구 테헤란로 152, 7층 (우편번호: 06236) | Email: help@disneyplus.kr | 연락처: 080 822 1416 | 사업자등록번호: 220-81-03347 | 통신판매업 신고번호: 제2021-서울강남-05456호 |<br>
+                        비디오물배급업 신고번호: 제2016-16호 | 호스팅서비스 사업자: NSOne
+                    </address>
+                </p>
+                <p>
+                    디즈니+의 콘텐츠는 서비스 여부에 따라 달라질 수 있습니다.<br>
+                    © 2023 Disney and its related entities. All Rights Reserved.
+                </p>
+            </div>
+        </footer>
+    </body>
+    <script src="/static/Script/main.js"></script>
+</html>

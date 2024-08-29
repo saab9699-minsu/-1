@@ -1,0 +1,75 @@
+/* =========================header============================= */
+
+header {
+    align-items: center;
+    display: flex;
+    height: 100px;
+    background-color: rgb(63, 63, 63);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    padding: 0 50px;
+}
+
+#title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    color: #cccccc;
+}
+
+/* 시계 */
+.digital {
+    display: flex;
+    font-size: 30px;
+    font-weight: 900;
+    color: #cccccc;
+}
+
+.hours::after,
+.minutes::after {
+    content: ": ";
+    margin: 0 5px;
+}
+
+nav > ul {
+    display: flex;
+    list-style: none;
+    gap: 100px;
+    justify-content: center;
+    height: 25px;
+    align-items: center;
+    font-size: 20px;
+    margin: 0px 0px 0px 200px;
+    /* background-color: aqua; */
+    width: 700px;
+}
+
+nav > ul > li {
+    letter-spacing: 2px;
+    color: rgb(224, 224, 224);
+    font-weight : bold;
+    border-bottom: 4px solid transparent;
+}
+
+nav > ul > li:hover {
+    border-bottom: 4px solid rgb(224, 224, 224);
+}
+
+.login-sign {
+    margin-left: 600px;
+    gap: 20px;
+    letter-spacing: 2px;
+    display: flex;
+    color: rgb(224, 224, 224);
+    font-size: 20px;
+    border-bottom: 2px solid transparent;
+}
+
+.login-sign p {
+    border-bottom: 2px solid transparent;
+}
+
+.login-sign p:hover {
+    border-bottom: 2px solid rgb(224, 224, 224);
+}

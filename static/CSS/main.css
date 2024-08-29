@@ -1,0 +1,166 @@
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+/* ===========================인기================================== */
+
+.swiper {
+    margin-top: 100px;
+    width: 40%;
+    height: 400px;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-image {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.swiper-slide img:hover {
+    transform: scale(1.1);
+}
+
+.swiper-slide p {
+    margin: -20px;
+}
+
+.swiper-slide span {
+    background-color: orange;
+    border-radius: 50%;
+    display: inline-block;
+    width: 69px;
+    height: 69px;
+    line-height: 69px;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    color: red;
+    font-weight: 900;
+    border: 4px solid red;
+    line-height: 65px;
+}
+
+.swiper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev{
+    color: gray;
+}
+
+/* ============================main=============================== */
+
+.category {
+    margin-left: 400px;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.category button {
+    padding: 2px 20px;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+/* .category  {
+    font-size: 160px;
+} */
+
+.grid {
+    padding: 30px;
+    border: 3px solid silver;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 60%;
+    gap: 50px 20px;
+}
+
+.coffee img{
+    width: 100%;
+    height: 350px;
+    transition: transform 0.3s ease;
+    z-index: -99;
+    margin: auto;
+}
+
+div.coffee p {
+    position: relative;
+    z-index: 99;
+}
+
+.coffee h1 {
+    font-size: 20px;
+}
+
+.category_brand {
+    display: flex;
+    gap: 15px;
+}
+
+.category_brand h2 {
+    border: 3px solid rgb(80, 80, 80);
+    padding: 3px 10px;
+    position: relative;
+    z-index: 99;
+    border-radius: 20px;
+    margin: 10px 0 20px;
+}
+
+.coffee img:hover {
+    transform: scale(1.1);
+}
+
+.kcal_table {
+    position: relative;
+    z-index: 99;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+
+.kcal_table .kcal {
+    height: 100%;
+    width: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
+    /* background-color: red; */
+}
+
+.kcal2 {
+    border-left: 2px solid black;
+    
+}
+
+.kcal_table > .kcal > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    height: 33%;
+    align-items: center;
+}
+
